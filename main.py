@@ -164,12 +164,12 @@ def seed_sample_data():
     cursor.execute("SELECT COUNT(*) FROM Pet")
     if cursor.fetchone()[0] == 0:
         pets = [
-            ("Bella", "https://loremflickr.com/400/300/puppy?lock=1", 50),
-            ("Max", "https://loremflickr.com/400/300/dog?lock=2", 75),
-            ("Luna", "https://loremflickr.com/400/300/cat?lock=4", 30),
-            ("Whiskers", "https://loremflickr.com/400/300/kitten?lock=5", 25),
-            ("Thumper", "https://loremflickr.com/400/300/rabbit?lock=7", 20),
-            ("Kiwi", "https://loremflickr.com/400/300/parrot?lock=9", 120),
+            ("Bella", "https://placedog.net/500/400?id=3", 50),
+            ("Max", "https://cataas.com/cat?width=500", 75),
+            ("Luna", "https://cataas.com/cat?width=601", 30),
+            ("Whiskers", "https://cataas.com/cat?width=605", 25),
+            ("Thumper", "https://commons.wikimedia.org/wiki/Special:FilePath/Small_European_Rabbit.jpg?width=500", 20),
+            ("Kiwi", "https://commons.wikimedia.org/wiki/Special:FilePath/Ara-Zoo-Muenster.jpg?width=500", 120),
         ]
         cursor.executemany(
             "INSERT INTO Pet (pet_name, image_url, adoption_fee) VALUES (?, ?, ?)", pets

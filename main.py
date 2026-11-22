@@ -165,7 +165,7 @@ def seed_sample_data():
     if cursor.fetchone()[0] == 0:
         pets = [
             ("Bella", "https://placedog.net/500/400?id=3", 50),
-            ("Max", "https://cataas.com/cat?width=500", 75),
+            ("Max", "https://cataas.com/cat?width=502", 75),
             ("Luna", "https://cataas.com/cat?width=601", 30),
             ("Whiskers", "https://cataas.com/cat?width=605", 25),
             ("Thumper", "https://commons.wikimedia.org/wiki/Special:FilePath/Small_European_Rabbit.jpg?width=500", 20),

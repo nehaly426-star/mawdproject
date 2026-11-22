@@ -1,4 +1,9 @@
-const API_URL = "https://mawdproject.onrender.com";
+const PRODUCTION_API = "https://mawdproject.onrender.com";
+
+const isLocal = ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
+const API_BASE = isLocal
+  ? `http://${window.location.hostname || "127.0.0.1"}:8000`
+  : PRODUCTION_API;
 
 function getAuth() {
   return {

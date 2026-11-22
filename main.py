@@ -157,6 +157,7 @@ def create_default_admin():
 
     conn.close()
 
+
 def seed_sample_data():
     conn = get_connection()
     cursor = conn.cursor()
@@ -281,12 +282,29 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 @app.get("/pets")
-def read_pets():
+def read_pets(include_adopted: bool = False):
+    # Pets with an approved adoption request are hidden from the public list.
+    # Admins can see everything with /pets?include_adopted=true
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Pet")
-    pets = [dict(row) for row in cursor.fetchall()]
+    cursor.execute('''
+        SELECT p.*,
+               EXISTS (
+                   SELECT 1 FROM AdoptionRequest a
+                   WHERE a.pet_id = p.id AND a.status = 'approved'
+               ) AS adopted
+        FROM Pet p
+        ORDER BY p.id
+    ''')
+    pets = []
+    for row in cursor.fetchall():
+        pet = dict(row)
+        pet["adopted"] = bool(pet["adopted"])
+        pets.append(pet)
     conn.close()
+
+    if not include_adopted:
+        pets = [p for p in pets if not p["adopted"]]
     return pets
 
 
@@ -333,7 +351,14 @@ def delete_pet(pet_id: int, current_user=Depends(get_current_user)):
 
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM Pet WHERE id = ?", (pet_id,))
+    try:
+        cursor.execute("DELETE FROM Pet WHERE id = ?", (pet_id,))
+    except sqlite3.IntegrityError:
+        conn.close()
+        raise HTTPException(
+            status_code=400,
+            detail="This pet has adoption requests and cannot be deleted.",
+        )
     if cursor.rowcount == 0:
         conn.close()
         raise HTTPException(status_code=404, detail="Pet record not found.")
@@ -357,6 +382,15 @@ def create_adoption_request(req: AdoptionCreate, current_user=Depends(get_curren
     if not pet:
         conn.close()
         raise HTTPException(status_code=404, detail="Pet record not found.")
+
+    # Block requests for a pet that has already been adopted
+    cursor.execute(
+        "SELECT id FROM AdoptionRequest WHERE pet_id = ? AND status = 'approved'",
+        (req.pet_id,)
+    )
+    if cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=400, detail="This pet has already been adopted.")
 
     cursor.execute(
         "SELECT id FROM AdoptionRequest WHERE user_id = ? AND pet_id = ? AND status != 'rejected'",
@@ -443,6 +477,20 @@ def update_adoption_status(request_id: int, body: AdoptionStatusUpdate, current_
 
     conn = get_connection()
     cursor = conn.cursor()
+
+    # A pet can only be approved for one adopter
+    if body.status == "approved":
+        cursor.execute("SELECT pet_id FROM AdoptionRequest WHERE id = ?", (request_id,))
+        row = cursor.fetchone()
+        if row:
+            cursor.execute(
+                "SELECT id FROM AdoptionRequest WHERE pet_id = ? AND status = 'approved' AND id != ?",
+                (row["pet_id"], request_id)
+            )
+            if cursor.fetchone():
+                conn.close()
+                raise HTTPException(status_code=400, detail="Another request for this pet is already approved.")
+
     cursor.execute("UPDATE AdoptionRequest SET status = ? WHERE id = ?", (body.status, request_id))
     if cursor.rowcount == 0:
         conn.close()

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — PawAdopt</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="dashboard">
+  <header class="navbar">
+    <div class="brand">🐾 PawAdopt</div>
+    <nav class="nav-links" id="navLinks"></nav>
+  </header>
+
+  <main class="container">
+    <div id="alertBox" class="alert hidden"></div>
+
+    <section class="hero compact">
+      <div>
+        <h1 id="dashTitle">Dashboard</h1>
+        <p id="dashSubtitle">Manage adoption requests, pets, and support tickets.</p>
+      </div>
+    </section>
+
+    <!-- Admin-only: Pet CRUD -->
+    <section class="section hidden" id="adminPetsSection">
+      <h2>Manage Pets (Admin CRUD)</h2>
+      <div class="two-col">
+        <div class="card">
+          <h3 id="petFormTitle">Add New Pet</h3>
+          <form id="petForm">
+            <input type="hidden" id="editPetId" />
+
+            <label for="petName">Pet Name</label>
+            <input type="text" id="petName" required placeholder="e.g. Bella" />
+
+            <label for="petImage">Image URL</label>
+            <input type="text" id="petImage" placeholder="https://example.com/pet.jpg" />
+
+            <label for="petFee">Adoption Fee</label>
+            <input type="number" step="0.01" min="0" id="petFee" required placeholder="0" />
+
+            <div class="btn-row">
+              <button type="submit" class="btn btn-primary" id="petSubmitBtn">Save Pet</button>
+              <button type="button" class="btn btn-ghost hidden" id="cancelEditPetBtn">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3>Pet Inventory</h3>
+          <div id="adminPetsList" class="stack-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Adoption Requests (Admin sees all, Adopter sees own) -->
+    <section class="section">
+      <h2>Adoption Requests</h2>
+      <div id="adoptionsContainer" class="stack-list"></div>
+    </section>
+
+    <!-- Admin-only: Support Create & Update -->
+    <section class="section hidden" id="adminSupportSection">
+      <h2>Manage Support Tickets (Admin)</h2>
+      <div class="two-col">
+        <div class="card">
+          <h3>Create Support Ticket</h3>
+          <form id="createSupportForm">
+            <label for="supportTicketId">Ticket ID</label>
+            <input type="text" id="supportTicketId" required placeholder="e.g. TCK-101" />
+
+            <label for="supportMsg">Message</label>
+            <textarea id="supportMsg" rows="3" required placeholder="Adoption guidelines or help info"></textarea>
+
+            <button type="submit" class="btn btn-primary">Create Ticket</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3>Update Existing Support Ticket</h3>
+          <form id="updateSupportForm">
+            <label for="updateTicketId">Existing Ticket ID</label>
+            <input type="text" id="updateTicketId" required placeholder="e.g. TCK-101" />
+
+            <label for="updateSupportMsg">Updated Message</label>
+            <textarea id="updateSupportMsg" rows="3" required placeholder="New message"></textarea>
+
+            <button type="submit" class="btn btn-secondary">Update Ticket</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

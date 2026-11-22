@@ -157,9 +157,38 @@ def create_default_admin():
 
     conn.close()
 
+def seed_sample_data():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT COUNT(*) FROM Pet")
+    if cursor.fetchone()[0] == 0:
+        pets = [
+            ("Bella", "https://loremflickr.com/400/300/puppy?lock=1", 50),
+            ("Max", "https://loremflickr.com/400/300/dog?lock=2", 75),
+            ("Luna", "https://loremflickr.com/400/300/cat?lock=4", 30),
+            ("Whiskers", "https://loremflickr.com/400/300/kitten?lock=5", 25),
+            ("Thumper", "https://loremflickr.com/400/300/rabbit?lock=7", 20),
+            ("Kiwi", "https://loremflickr.com/400/300/parrot?lock=9", 120),
+        ]
+        cursor.executemany(
+            "INSERT INTO Pet (pet_name, image_url, adoption_fee) VALUES (?, ?, ?)", pets
+        )
+
+    cursor.execute("SELECT COUNT(*) FROM Support")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute(
+            "INSERT INTO Support (ticket_id, msg, user_id) VALUES (?, ?, ?)",
+            ("TCK-101", "All adopters must be 18+ and bring a valid ID when collecting a pet.", None),
+        )
+
+    conn.commit()
+    conn.close()
+
 
 initialize_database()
 create_default_admin()
+seed_sample_data()
 print("Database and default administrator initialized successfully.")
 
 

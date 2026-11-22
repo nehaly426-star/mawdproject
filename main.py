@@ -167,7 +167,7 @@ def seed_sample_data():
             ("Bella", "https://placedog.net/500/400?id=3", 50),
             ("Max", "https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg", 75),
             ("Luna", "https://upload.wikimedia.org/wikipedia/commons/3/31/CalicoCat.jpg", 30),
-            ("Whiskers", "https://en.wikipedia.org/wiki/Cheeto_(cat)#/media/File:UCDavisCheeto_2026.jpg", 25),
+            ("Whiskers", "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg", 25),
             ("Thumper", "https://commons.wikimedia.org/wiki/Special:FilePath/Small_European_Rabbit.jpg?width=500", 20),
             ("Kiwi", "https://commons.wikimedia.org/wiki/Special:FilePath/Ara-Zoo-Muenster.jpg?width=500", 120),
         ]

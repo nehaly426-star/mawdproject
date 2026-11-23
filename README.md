@@ -2,7 +2,7 @@
 
 **Live site:** https://nehaly426-star.github.io/mawdproject/
 
-Hi! I'm [Your Name], and this is PawAdopt, a pet adoption website I built as part of my college project.
+Hi! I'm Nehal Yadav, and this is PawAdopt, a pet adoption website I built as part of my college project.
 
 ## Why I made this
 
@@ -77,15 +77,7 @@ API documentation is available at `/docs` on the running backend.
 
 ## Good to know
 
-The backend runs on a free hosting plan, so it goes to sleep when nobody uses it. The first page load after a quiet period can take up to a minute. The free plan also resets the database now and then, so pets added there may need to be added again.
-
-## What I'd like to add next
-
-- Photo uploads instead of pasting image links
-- Email or SMS updates when a request is approved
-- Pet details such as breed, age and a short story
-- A search and filter bar
-- A permanent cloud database
+The backend runs on a free hosting plan, so it goes to sleep when nobody uses it. The first page load after a quiet period can take up to a minute. The free plan also resets the database now and then, so pets added there may need to be added again. Though I have entered a few pets for demo in the code itself.   
 
 ## What I learned
 

@@ -30,7 +30,7 @@ PawAdopt has two pages, and what you see depends on who you are.
 - A dashboard that shows my requests and whether each one is *pending*, *approved* or *rejected*.
 - I can't send a second request for the same pet while one is already active.
 
-**For the admin** (You can do admin login by the username and password given in code)
+**For the admin** (You can do admin login by the username: adminmeow and password:admin123 given in code)
 - Add, edit and delete pets.
 - See every adoption request with the adopter's name, username and phone number, then **approve or reject** it.
 - Post and update support announcements.
@@ -77,7 +77,7 @@ API documentation is available at `/docs` on the running backend.
 
 ## Good to know
 
-The backend runs on a free hosting plan, so it goes to sleep when nobody uses it. The first page load after a quiet period can take up to a minute. The free plan also resets the database now and then, so pets added there may need to be added again. Though I have entered a few pets for demo in the code itself.   
+The backend runs on a free hosting plan on render, so it goes to sleep when nobody uses it. The first page load after a quiet period can take up to a minute. The free plan also resets the database now and then, so pets added there may need to be added again. Though I have entered a few pets for demo in the code itself.   
 
 ## What I learned
 

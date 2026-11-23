@@ -25,12 +25,12 @@ PawAdopt has two pages, and what you see depends on who you are.
 - A **Support & Announcements** section with adoption guidelines and updates from the shelter.
 - Login and Register forms.
 
-**For adopters (after signing up)**
+**For adopters (after signing up/registering)** (You can do adopter login by username and password of your choice)
 - A **Request Adoption** button appears on every pet.
 - A dashboard that shows my requests and whether each one is *pending*, *approved* or *rejected*.
 - I can't send a second request for the same pet while one is already active.
 
-**For the admin**
+**For the admin** (You can do admin login by the username and password given in code)
 - Add, edit and delete pets.
 - See every adoption request with the adopter's name, username and phone number, then **approve or reject** it.
 - Post and update support announcements.
